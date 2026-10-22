@@ -1,11 +1,9 @@
 ﻿namespace library.Models;
-
-// One Book object holds one row of lending.book.
-public class Book
+public class Member
 {
-    public long BookId { get; set; }          // book_id   BIGINT, the primary key
-    public string Title { get; set; } = "";   // title     VARCHAR(150) NOT NULL
-    public string? Category { get; set; }     // category  VARCHAR(40), may be NULL
-    public decimal? Price { get; set; }       // price     NUMERIC(7,2), may be NULL
+    public long MemberId { get; set; }         
+    public string FullName { get; set; } = "";   
+    public string? Email { get; set; }    
+    public string MemberType { get; set; } = "";
 
 }
