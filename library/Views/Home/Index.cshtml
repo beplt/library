@@ -1,8 +1,34 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero text-center">
+    <p class="hero-kicker">Welcome to</p>
+    <h1 class="hero-title">Arwen's Library</h1>
+    <p class="hero-sub">A cozy corner for keeping track of every book and every reader.</p>
+    <div class="d-flex justify-content-center gap-2 flex-wrap">
+        <a asp-controller="Books" asp-action="Index" class="btn btn-primary btn-lg">Browse books</a>
+        <a asp-controller="Members" asp-action="Index" class="btn btn-outline-secondary btn-lg">See members</a>
+    </div>
+</section>
+
+<div class="row g-4 mt-2">
+    <div class="col-md-6">
+        <div class="card feature-card h-100">
+            <div class="card-body">
+                <h2 class="h4">Books</h2>
+                <p class="mb-3">Add new titles, update categories and prices, or retire old ones.</p>
+                <a asp-controller="Books" asp-action="Create" class="stretched-link">Add a book &rarr;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card feature-card h-100">
+            <div class="card-body">
+                <h2 class="h4">Members</h2>
+                <p class="mb-3">Keep the directory of readers tidy and up to date.</p>
+                <a asp-controller="Members" asp-action="Create" class="stretched-link">Add a member &rarr;</a>
+            </div>
+        </div>
+    </div>
 </div>
