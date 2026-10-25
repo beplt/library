@@ -5,6 +5,6 @@ public class Note
     public long NoteId { get; set; }
     public string Title { get; set; } = "";
     public string? Body { get; set; }
-    public DateTime CreatedOn { get; set; } = DateTime.Now;
+    public DateTime CreatedOn { get; set; }
 
 }
