@@ -77,6 +77,7 @@ INSERT INTO lending.loan (member_id, book_id, loaned_on, returned_on, days_allow
   (3, 11, '2026-04-06', NULL, 14),
   (6, 1, '2026-04-08', '2026-04-12', 7),
   (9, 2, '2026-04-10', NULL, 7);
+
  
 -- Confirm: 14 members, 17 books, 40 loans
 SELECT (SELECT COUNT(*) FROM lending.member) AS members,

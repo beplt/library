@@ -1,0 +1,77 @@
+﻿@model List<Note>
+@{
+    ViewData["Title"] = "Notes";
+}
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <div>
+        <h1 class="mb-0">Notes</h1>
+        <p class="text-muted mb-0">@Model.Count notes on the board</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <div class="btn-group" role="group" aria-label="Switch view">
+            <button type="button" id="btnBoard" class="btn btn-outline-secondary" onclick="showView('board')">Board View</button>
+            <button type="button" id="btnTable" class="btn btn-outline-secondary" onclick="showView('table')">Table View</button>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">Add a note</a>
+    </div>
+</div>
+
+<div id="boardView" class="board">
+    @foreach (var note in Model)
+    {
+        <div class="sticky @("c" + (note.NoteId % 5))" style="--tilt:@(note.NoteId % 5 - 2)deg">
+            <h5>@note.Title</h5>
+            <p>@(note.Body ?? "No details yet")</p>
+            <div class="sticky-foot">
+                <small>@note.CreatedOn.ToString("yyyy-MM-dd")</small>
+                <span>
+                    <a asp-action="Edit" asp-route-id="@note.NoteId">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@note.NoteId">Delete</a>
+                </span>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="tableView">
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-end" style="width:4rem">#</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Created</th>
+                <th style="width:10rem"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in Model)
+            {
+                <tr>
+                    <td class="text-end">@note.NoteId</td>
+                    <td>@note.Title</td>
+                    <td>@(note.Body ?? "-")</td>
+                    <td>@note.CreatedOn.ToString("yyyy-MM-dd")</td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@note.NoteId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@note.NoteId" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function showView(view) {
+        document.getElementById("boardView").hidden = (view !== "board");
+        document.getElementById("tableView").hidden = (view !== "table");
+        document.getElementById("btnBoard").classList.toggle("active", view === "board");
+        document.getElementById("btnTable").classList.toggle("active", view === "table");
+        try { localStorage.setItem("notesView", view); } catch (e) { }
+    }
+    var saved = "board";
+    try { saved = localStorage.getItem("notesView") || "board"; } catch (e) { }
+    showView(saved);
+</script>

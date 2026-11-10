@@ -342,3 +342,91 @@ a.navbar-brand {
 .dropdown-item:hover {
     background: #eef4fb;
 }
+
+/* ===== Notes board ===== */
+.board {
+    background: #c9a074;
+    padding: 1.5rem;
+    border-radius: .75rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 1.5rem;
+}
+
+.sticky {
+    position: relative;
+    min-height: 11rem;
+    padding: 1.25rem 1rem .75rem;
+    box-shadow: 0 .4rem .6rem rgba(0, 0, 0, .25);
+    transform: rotate(var(--tilt));
+    transition: transform .15s;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+}
+
+    .sticky:hover {
+        transform: rotate(0) scale(1.04);
+        z-index: 1;
+    }
+
+    /* the red pin at the top */
+    .sticky::before {
+        content: "";
+        position: absolute;
+        top: .4rem;
+        left: 50%;
+        width: .8rem;
+        height: .8rem;
+        margin-left: -.4rem;
+        border-radius: 50%;
+        background: #c0392b;
+        box-shadow: 0 .1rem .2rem rgba(0, 0, 0, .4);
+    }
+
+    .sticky h5 {
+        font-size: 1.05rem;
+        margin-bottom: .4rem;
+    }
+
+    .sticky p {
+        flex: 1;
+        font-size: .9rem;
+        white-space: pre-line;
+    }
+
+.sticky-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .75rem;
+}
+
+    .sticky-foot a {
+        margin-left: .5rem;
+        color: #333;
+    }
+
+.c0 {
+    background: #fff176;
+}
+
+.c1 {
+    background: #f8bbd0;
+}
+
+.c2 {
+    background: #b2ebf2;
+}
+
+.c3 {
+    background: #c5e1a5;
+}
+
+.c4 {
+    background: #ffcc80;
+}
+
+[hidden] {
+    display: none !important;
+}
