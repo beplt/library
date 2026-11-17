@@ -2,41 +2,58 @@
 @{
     ViewData["Title"] = "Borrow a book";
 }
- 
-<h1 class="mb-3">Borrow a book</h1>
- 
-<form asp-action="Borrow" method="post" class="card card-body" style="max-width:36rem">
-    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
- 
-    <div class="mb-3">
-        <label asp-for="MemberId" class="form-label">Member</label>
-        <select asp-for="MemberId" asp-items="ViewBag.Members" class="form-select">
-            <option value="">(choose a member)</option>
-        </select>
-        <span asp-validation-for="MemberId" class="text-danger"></span>
+
+<div class="borrow-wrap">
+    <div class="borrow-side">
+        <div class="borrow-icon">📚</div>
+        <h1 class="h2">Borrow a book</h1>
+        <p class="mb-0">Pick who is borrowing, choose the book, then set how many days it can stay out.</p>
     </div>
- 
-    <div class="mb-3">
-        <label asp-for="BookId" class="form-label">Book</label>
-        <select asp-for="BookId" asp-items="ViewBag.Books" class="form-select">
-            <option value="">(choose a book)</option>
-        </select>
-        <span asp-validation-for="BookId" class="text-danger"></span>
-    </div>
- 
-    <div class="mb-3">
-        <label asp-for="DaysAllowed" class="form-label">Days allowed</label>
-        <input asp-for="DaysAllowed" class="form-control" />
-        <span asp-validation-for="DaysAllowed" class="text-danger"></span>
-    </div>
- 
-    <div>
-        <button type="submit" class="btn btn-primary">Borrow</button>
-        <a asp-action="Index" class="btn btn-link">Cancel</a>
-    </div>
-</form>
- 
+
+    <form asp-action="Borrow" method="post" class="borrow-form">
+        <div asp-validation-summary="ModelOnly" class="form-alert mb-3"></div>
+
+        <div class="form-step">
+            <span class="step-num">1</span>
+            <div class="form-step-body">
+                <label asp-for="MemberId" class="form-label">Who is borrowing?</label>
+                <select asp-for="MemberId" asp-items="ViewBag.Members" class="form-select">
+                    <option value="">(choose a member)</option>
+                </select>
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-step">
+            <span class="step-num">2</span>
+            <div class="form-step-body">
+                <label asp-for="BookId" class="form-label">Which book?</label>
+                <select asp-for="BookId" asp-items="ViewBag.Books" class="form-select">
+                    <option value="">(choose a book)</option>
+                </select>
+                <span asp-validation-for="BookId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-step">
+            <span class="step-num">3</span>
+            <div class="form-step-body">
+                <label asp-for="DaysAllowed" class="form-label">For how long?</label>
+                <div class="input-group">
+                    <input asp-for="DaysAllowed" class="form-control" />
+                    <span class="input-group-text">days</span>
+                </div>
+                <span asp-validation-for="DaysAllowed" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">📖 Borrow</button>
+            <a asp-action="Index" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

@@ -3,40 +3,107 @@
     ViewData["Title"] = "Members";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
     <div>
         <h1 class="mb-0">Members</h1>
         <p class="text-muted mb-0">@Model.Count members in the directory</p>
     </div>
-    <a asp-action="Create" class="btn btn-primary">Add a member</a>
+    <div class="d-flex align-items-center gap-2">
+        <div class="btn-group" role="group" aria-label="Switch view">
+            <button type="button" id="btnCards" class="btn btn-outline-secondary active">Card view</button>
+            <button type="button" id="btnTable" class="btn btn-outline-secondary">Table view</button>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">➕ Add a member</a>
+    </div>
 </div>
 
-<table class="table table-striped table-hover align-middle">
-    <thead class="table-dark">
-        <tr>
-            <td class="text-end text-nowrap">
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Member Type</th>
-            <th class="text-end">Books out</th>
-            <th style="width:16rem"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var member in Model)
-        {
+<!-- CARD VIEW -->
+<div id="cardView" class="member-grid">
+    @foreach (var member in Model)
+    {
+        var name = member.FullName;
+        var parts = name.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        var initials = parts.Length > 1 ? (parts[1][0].ToString() + parts[0][0]).ToUpper() : (name.Length > 0 ? name.Substring(0, 1).ToUpper() : "?");
+
+        <div class="person-card">
+            <div class="person-top">
+                <div class="avatar cover-@(member.MemberId % 6)">@initials</div>
+                <div class="person-info">
+                    <h2 class="h5 mb-1">@member.FullName</h2>
+                    <span class="chip-type">@member.MemberType</span>
+                </div>
+                <div class="dropdown">
+                    <button type="button" class="btn-dots" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Options for @member.FullName">&#8942;</button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" asp-action="Details" asp-route-id="@member.MemberId">📖 Loans</a></li>
+                        <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@member.MemberId">✏️ Edit</a></li>
+                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@member.MemberId">🗑 Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="person-email">✉️ @(member.Email ?? "-")</p>
+            <div class="person-foot">
+                <span class="books-out @(member.OpenLoans > 0 ? "has-books" : "")">📚 Books out: <strong>@member.OpenLoans</strong></span>
+                <a asp-action="Details" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-primary">View loans</a>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- TABLE VIEW -->
+<div id="tableView" class="d-none">
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
             <tr>
-                <td class="text-end">@member.MemberId</td>
-                <td>@member.FullName</td>
-                <td>@(member.Email ?? "-")</td>
-                <td>@member.MemberType</td>
-                <td class="text-end">@member.OpenLoans</td>
-                <td class="text-end">
-                    <a asp-action="Details" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-primary">Loans</a>
-                    <a asp-action="Edit" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-secondary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-danger">Delete</a>
-                </td>
+                <th class="text-end">#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Member Type</th>
+                <th class="text-end">Books out</th>
+                <th style="width:16rem"></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td class="text-end">@member.MemberId</td>
+                    <td>@member.FullName</td>
+                    <td>@(member.Email ?? "-")</td>
+                    <td>@member.MemberType</td>
+                    <td class="text-end">@member.OpenLoans</td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-primary">Loans</a>
+                        <a asp-action="Edit" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        const cardView = document.getElementById('cardView');
+        const tableView = document.getElementById('tableView');
+        const btnCards = document.getElementById('btnCards');
+        const btnTable = document.getElementById('btnTable');
+
+        function showView(view) {
+            const isCards = view === 'cards';
+            cardView.classList.toggle('d-none', !isCards);
+            tableView.classList.toggle('d-none', isCards);
+            btnCards.classList.toggle('active', isCards);
+            btnTable.classList.toggle('active', !isCards);
+            try { localStorage.setItem('membersView', view); } catch (e) { }
         }
-    </tbody>
-</table>
+
+        btnCards.addEventListener('click', () => showView('cards'));
+        btnTable.addEventListener('click', () => showView('table'));
+
+        let saved = 'cards';
+        try { saved = localStorage.getItem('membersView') || 'cards'; } catch (e) { }
+        showView(saved);
+    </script>
+}
