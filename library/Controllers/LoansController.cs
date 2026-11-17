@@ -47,7 +47,7 @@ public class LoansController : Controller
 
             if (saved)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); 
             }
             ModelState.AddModelError("", $"This member already has {LoanRepository.MaxOpenLoans} books out. Nothing was saved.");
         }
@@ -55,6 +55,15 @@ public class LoansController : Controller
         return View(form);
 
     }
+    // POST /Loans/Return/5 : the Return button was pressed.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Return(long id)
+    {
+        await _loans.ReturnAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+
 
 
 }
