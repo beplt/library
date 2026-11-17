@@ -14,7 +14,7 @@
     <div>
         <h1 class="mb-1">@Model.Member.FullName</h1>
         <span class="chip-type">@Model.Member.MemberType</span>
-        <span class="text-muted ms-2">✉️ @(Model.Member.Email ?? "no email")</span>
+        <span class="text-muted ms-2">@(Model.Member.Email ?? "no email")</span>
     </div>
 </div>
 
@@ -37,7 +37,6 @@
 @if (Model.Loans.Count == 0)
 {
     <div class="empty-state">
-        <div class="display-6">📭</div>
         <p class="mb-0">This member has never borrowed a book.</p>
     </div>
 }
@@ -54,7 +53,7 @@ else
             @foreach (var loan in Model.Loans)
             {
                 <div class="loan-row loan-row-4">
-                    <div class="loan-book">📖 @loan.BookTitle</div>
+                    <div class="loan-book">@loan.BookTitle</div>
                     <div class="loan-date">@(loan.LoanedOn.ToString("yyyy-MM-dd"))</div>
                     <div class="loan-date">@(loan.ReturnedOn?.ToString("yyyy-MM-dd") ?? "Not yet")</div>
                     <div><span class="status status-@(loan.Status.ToLower())">@loan.Status</span></div>

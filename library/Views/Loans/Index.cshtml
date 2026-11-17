@@ -17,7 +17,7 @@
             <button type="button" id="btnCards" class="btn btn-outline-secondary active">Card view</button>
             <button type="button" id="btnTable" class="btn btn-outline-secondary">Table view</button>
         </div>
-        <a asp-action="Borrow" class="btn btn-primary">➕ Borrow a book</a>
+        <a asp-action="Borrow" class="btn btn-primary">Borrow a book</a>
     </div>
 </div>
 
@@ -39,7 +39,6 @@
 @if (Model.Count == 0)
 {
     <div class="empty-state">
-        <div class="display-6">📭</div>
         <p class="mb-0">No loans yet. Borrow a book to get started.</p>
     </div>
 }
@@ -62,7 +61,7 @@
                     </h2>
                     <span class="text-muted small">@openCount out · @g.Count() total</span>
                 </div>
-                <a asp-action="Borrow" class="btn btn-sm btn-primary">➕ Add</a>
+                <a asp-action="Borrow" class="btn btn-sm btn-primary">Add</a>
             </div>
 
             <div class="loan-list">
@@ -76,7 +75,7 @@
                 @foreach (var loan in g)
                 {
                     <div class="loan-row">
-                        <div class="loan-book">📖 @loan.BookTitle</div>
+                        <div class="loan-book">@loan.BookTitle</div>
                         <div class="loan-date">@(loan.LoanedOn.ToString("yyyy-MM-dd"))</div>
                         <div class="loan-date">@(loan.LoanedOn.AddDays(loan.DaysAllowed).ToString("yyyy-MM-dd"))</div>
                         <div><span class="status status-@(loan.Status.ToLower())">@loan.Status</span></div>

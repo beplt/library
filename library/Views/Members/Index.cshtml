@@ -13,7 +13,7 @@
             <button type="button" id="btnCards" class="btn btn-outline-secondary active">Card view</button>
             <button type="button" id="btnTable" class="btn btn-outline-secondary">Table view</button>
         </div>
-        <a asp-action="Create" class="btn btn-primary">➕ Add a member</a>
+        <a asp-action="Create" class="btn btn-primary">Add a member</a>
     </div>
 </div>
 
@@ -35,15 +35,15 @@
                 <div class="dropdown">
                     <button type="button" class="btn-dots" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Options for @member.FullName">&#8942;</button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" asp-action="Details" asp-route-id="@member.MemberId">📖 Loans</a></li>
-                        <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@member.MemberId">✏️ Edit</a></li>
-                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@member.MemberId">🗑 Delete</a></li>
+                        <li><a class="dropdown-item" asp-action="Details" asp-route-id="@member.MemberId">Loans</a></li>
+                        <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@member.MemberId">Edit</a></li>
+                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@member.MemberId">Delete</a></li>
                     </ul>
                 </div>
             </div>
-            <p class="person-email">✉️ @(member.Email ?? "-")</p>
+            <p class="person-email">@(member.Email ?? "-")</p>
             <div class="person-foot">
-                <span class="books-out @(member.OpenLoans > 0 ? "has-books" : "")">📚 Books out: <strong>@member.OpenLoans</strong></span>
+                <span class="books-out @(member.OpenLoans > 0 ? "has-books" : "")">Books out: <strong>@member.OpenLoans</strong></span>
                 <a asp-action="Details" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-primary">View loans</a>
             </div>
         </div>
