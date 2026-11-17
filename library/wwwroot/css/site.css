@@ -717,7 +717,7 @@ a.navbar-brand {
 }
 
 /* ===== Borrow form ===== */
-.borrow-wrap {
+.borrow-wrap, .form-wrap {
     display: grid;
     grid-template-columns: 280px 1fr;
     max-width: 52rem;
@@ -729,13 +729,13 @@ a.navbar-brand {
     box-shadow: 0 .5rem 1.25rem rgba(29, 78, 137, .12);
 }
 
-.borrow-side {
+.borrow-side, .form-side {
     background: linear-gradient(160deg, var(--blue), var(--blue-dark));
     color: #fff;
     padding: 2rem 1.5rem;
 }
 
-    .borrow-side h1 {
+    .borrow-side h1, .form-side h1 {
         color: #fff;
     }
 
@@ -744,7 +744,7 @@ a.navbar-brand {
     margin-bottom: .5rem;
 }
 
-.borrow-form {
+.borrow-form, .form-panel {
     padding: 2rem 1.75rem;
 }
 
@@ -772,7 +772,7 @@ a.navbar-brand {
 }
 
 @media (max-width: 768px) {
-    .borrow-wrap {
+    .borrow-wrap, .form-wrap {
         grid-template-columns: 1fr;
     }
 }

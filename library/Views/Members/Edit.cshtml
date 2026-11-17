@@ -3,38 +3,52 @@
     ViewData["Title"] = "Edit a member";
 }
 
-<h1 class="mb-3">Edit a member</h1>
-
-<form asp-action="Edit" method="post" class="card card-body" style="max-width:36rem">
-    <input type="hidden" asp-for="MemberId" />
-
-    <div class="mb-3">
-        <label asp-for="FullName" class="form-label">Full Name</label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
+<div class="form-wrap">
+    <div class="form-side">
+        <h1 class="h2">Edit a member</h1>
+        <p class="mb-0">Change their name, email or member type, then save.</p>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="MemberType" class="form-label">Member Type</label>
-        <select asp-for="MemberType" class="form-select">
-            <option>Regular</option>
-            <option>Student</option>
-            <option>Faculty</option>
-        </select>
-    </div>
+    <form asp-action="Edit" method="post" class="form-panel">
+        <input type="hidden" asp-for="MemberId" />
 
-    <div class="mb-3">
-        <label asp-for="Email" class="form-label">Email</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+        <div asp-validation-summary="ModelOnly" class="form-alert mb-3"></div>
 
-    <div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a asp-action="Index" class="btn btn-link">Cancel</a>
-    </div>
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+        <div class="form-step">
+            <span class="step-num">1</span>
+            <div class="form-step-body">
+                <label asp-for="FullName" class="form-label">What is their full name?</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-step">
+            <span class="step-num">2</span>
+            <div class="form-step-body">
+                <label asp-for="Email" class="form-label">What is their email?</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-step">
+            <span class="step-num">3</span>
+            <div class="form-step-body">
+                <label asp-for="MemberType" class="form-label">What type of member?</label>
+                <select asp-for="MemberType" class="form-select">
+                    <option>Regular</option>
+                    <option>Student</option>
+                    <option>Faculty</option>
+                </select>
+            </div>
+        </div>
 
-</form>
+        <div class="d-flex align-items-center gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

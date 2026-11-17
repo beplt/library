@@ -3,25 +3,37 @@
     ViewData["Title"] = "Edit a note";
 }
 
-<h1 class="mb-3">Edit a note</h1>
-
-<form asp-action="Edit" method="post" class="card card-body" style="max-width:36rem">
-    <input type="hidden" asp-for="NoteId" />
-
-    <div class="mb-3">
-        <label asp-for="Title" class="form-label">Title</label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+<div class="form-wrap">
+    <div class="form-side">
+        <h1 class="h2">Edit a note</h1>
+        <p class="mb-0">Change the title or the text, then save.</p>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="Body" class="form-label">Body</label>
-        <textarea asp-for="Body" class="form-control" rows="3"></textarea>
-        <span asp-validation-for="Body" class="text-danger"></span>
-    </div>
+    <form asp-action="Edit" method="post" class="form-panel">
+        <input type="hidden" asp-for="NoteId" />
 
-    <div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a asp-action="Index" class="btn btn-link">Cancel</a>
-    </div>
-</form>
+        <div asp-validation-summary="ModelOnly" class="form-alert mb-3"></div>
+
+        <div class="form-step">
+            <span class="step-num">1</span>
+            <div class="form-step-body">
+                <label asp-for="Title" class="form-label">What is the title?</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-step">
+            <span class="step-num">2</span>
+            <div class="form-step-body">
+                <label asp-for="Body" class="form-label">What do you want to write?</label>
+                <textarea asp-for="Body" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>
