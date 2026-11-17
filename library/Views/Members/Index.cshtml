@@ -14,11 +14,11 @@
 <table class="table table-striped table-hover align-middle">
     <thead class="table-dark">
         <tr>
-            <th class="text-end" style="width:4rem">#</th>
+            <td class="text-end text-nowrap">
             <th>Full Name</th>
             <th>Email</th>
             <th>Member Type</th>
-            <th style="width:10rem"></th>
+            <th style="width:16rem"></th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +30,7 @@
                 <td>@(member.Email ?? "-")</td>
                 <td>@member.MemberType</td>
                 <td class="text-end">
+                    <a asp-action="Details" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-primary">Loans</a>
                     <a asp-action="Edit" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-secondary">Edit</a>
                     <a asp-action="Delete" asp-route-id="@member.MemberId" class="btn btn-sm btn-outline-danger">Delete</a>
                 </td>
